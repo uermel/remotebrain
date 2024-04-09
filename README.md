@@ -6,7 +6,7 @@ Run [membrain-seg](https://github.com/teamtomo/membrain-seg) on clusters with da
 * cryoET data portal tomogram IDs
 * S3 file paths to mrc files
 
-## Sample MosaicML run files
+## Sample CLI commands
 
 
 ### File list input
