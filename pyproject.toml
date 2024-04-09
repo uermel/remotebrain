@@ -1,0 +1,32 @@
+[build-system]
+requires = ["hatchling", "hatch-vcs"]
+build-backend = "hatchling.build"
+
+[project]
+name = "remotebrain"
+dynamic = ["version"]
+dependencies = [
+    "click",
+    "s3fs",
+    "cryoet-data-portal",
+    "membrain-seg",
+    "aiobotocore",
+    "ome-zarr",
+    "zarr"
+]
+authors = [
+  {name = "Utz H. Ermel", email = "utz@ermel.me"},
+]
+description = "membrain-seg for use with data from AWS S3."
+readme = "README.md"
+license = {file = "LICENSE"}
+
+[project.scripts]
+remotebrain = "remotebrain.cli.run:cli"
+
+[tool.hatch.version]
+source = "vcs"
+
+[tool.semantic_release]
+version_variables = ["__init__.py:__version__"]
+build_command = "pip install build && python -m build"
