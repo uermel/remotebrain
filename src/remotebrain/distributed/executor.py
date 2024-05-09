@@ -7,6 +7,7 @@ import numpy as np
 from fsspec import AbstractFileSystem
 from s3fs import S3FileSystem
 import time
+import traceback
 
 import cryoet_data_portal as cdp
 
@@ -105,7 +106,8 @@ class DistributedInference:
             )
         except Exception as e:
             msg = f"Error processing {tomo.s3_mrc_scale0} on GPU {worker.gpu_id}\n"
-            msg += str(e)
+            msg += f"{str(e)}\n"
+            msg += str(traceback.format_exc())
 
         self.gpu_queue.put(worker)
 
