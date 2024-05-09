@@ -40,6 +40,8 @@ def infer(
 
     pl_model.rescale_patches = in_pixel_size != eval_pixel_size
 
+    pl_model = torch.compile(pl_model)
+
     roi_size = (sw_roi_size, sw_roi_size, sw_roi_size)
     print(roi_size)
 

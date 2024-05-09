@@ -20,7 +20,6 @@ def prep_model(
     pl_model = PreprocessedSemanticSegmentationUnet.load_from_checkpoint(
         model_checkpoint, map_location=device, strict=False
     )
-    pl_model = torch.compile(pl_model)
     pl_model.to(device)
 
     # Put the model into evaluation mode
