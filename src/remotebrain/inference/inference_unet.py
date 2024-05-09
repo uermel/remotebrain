@@ -129,7 +129,6 @@ class PreprocessedSemanticSegmentationUnet(SemanticSegmentationUnet):
 
         In this case, we rescale the input to the target shape.
         """
-        print(f"Device: {self.device}")
         rescaled_samples = []
         for sample in x:
             sample = sample[0]  # only use the first channel
