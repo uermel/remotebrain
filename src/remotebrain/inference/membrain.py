@@ -54,7 +54,7 @@ def infer(
 
     # Perform test time augmentation (8-fold mirroring)
     gpu_data = new_data.to(device)
-    predictions = torch.zeros_like(gpu_data)
+    predictions = torch.zeros_like(gpu_data, device=device)
 
     if test_time_augmentation:
         print(
