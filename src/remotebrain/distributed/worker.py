@@ -3,7 +3,7 @@ from typing import List, Tuple
 
 import cryoet_data_portal as cdp
 
-from membrain_seg.segmentation.networks.inference_unet import (
+from remotebrain.inference.inference_unet import (
     PreprocessedSemanticSegmentationUnet,
 )
 from remotebrain.data.loader import TomogramLoader
