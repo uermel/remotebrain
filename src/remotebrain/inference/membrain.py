@@ -38,7 +38,7 @@ def infer(
         )
         sw_roi_size = sw_roi_size[0]
 
-    #pl_model.rescale_patches = in_pixel_size != eval_pixel_size
+    # pl_model.rescale_patches = in_pixel_size != eval_pixel_size
 
     roi_size = (sw_roi_size, sw_roi_size, sw_roi_size)
     print(roi_size)
