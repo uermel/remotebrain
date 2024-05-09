@@ -9,7 +9,7 @@ dependencies = [
     "click",
     "s3fs",
     "cryoet-data-portal",
-    "membrain-seg",
+    "membrain-seg @ git+https://github.com/LorenzLamm/membrain-seg.git@6683a3a",
     "aiobotocore",
     "ome-zarr",
     "zarr"
@@ -26,6 +26,9 @@ remotebrain = "remotebrain.cli.run:cli"
 
 [tool.hatch.version]
 source = "vcs"
+
+[tool.hatch.metadata]
+allow-direct-references = true
 
 [tool.semantic_release]
 version_variables = ["__init__.py:__version__"]

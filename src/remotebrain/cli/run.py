@@ -63,6 +63,10 @@ def cli(ctx):
 @click.option(
     "--worker-per-gpu", type=int, default=1, help="Number of workers per GPU."
 )
+@click.option("--rescale-patches", type=bool, default=True, help="Rescale patches.")
+@click.option(
+    "--eval-pixel-size", type=float, default=10.0, help="Evaluation pixel size."
+)
 @click.pass_context
 def run(
     ctx,
@@ -77,6 +81,8 @@ def run(
     #    filter_run: str,
     num_gpu: int,
     worker_per_gpu: int,
+    rescale_patches: bool,
+    eval_pixel_size: float,
 ):
 
     # Input FS
@@ -144,6 +150,8 @@ def run(
         sw_roi_size=160,
         test_time_augmentation=True,
         worker_per_gpu=worker_per_gpu,
+        eval_pixel_size=eval_pixel_size,
+        rescale_patches=rescale_patches,
     )
 
     print("Runner setup.", flush=True)

@@ -28,6 +28,8 @@ class DistributedInference:
         sw_roi_size: int = 160,
         test_time_augmentation: bool = True,
         worker_per_gpu: int = 1,
+        eval_pixel_size: float = 10.0,
+        rescale_patches: bool = True,
     ):
         self.num_workers = len(gpu_ids) * worker_per_gpu
 
@@ -42,6 +44,7 @@ class DistributedInference:
                     DistributedWorker(
                         gpu_id,
                         model_ckpt_path=model_ckpt_path,
+                        target_shape=(sw_roi_size, sw_roi_size, sw_roi_size),
                     )
                 )
 
@@ -52,6 +55,8 @@ class DistributedInference:
         self.ckpt_token = os.path.basename(model_ckpt_path).split("-val_loss")[0]
         self.sw_roi_size = sw_roi_size
         self.test_time_augmentation = test_time_augmentation
+        self.eval_pixel_size = eval_pixel_size
+        self.rescale_patches = rescale_patches
 
     def run(self) -> str:
         worker = self.gpu_queue.get()
@@ -71,6 +76,9 @@ class DistributedInference:
 
             predictions = infer(
                 sw_roi_size=self.sw_roi_size,
+                in_pixel_size=tomo.voxel_spacing,
+                eval_pixel_size=self.eval_pixel_size,
+                rescale_patches=self.rescale_patches,
                 test_time_augmentation=self.test_time_augmentation,
                 new_data=data,
                 pl_model=worker.model,
