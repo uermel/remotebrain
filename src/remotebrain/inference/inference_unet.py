@@ -4,6 +4,7 @@ import torch
 from membrain_seg.segmentation.networks.unet import SemanticSegmentationUnet
 from membrain_seg.segmentation.networks.inference_unet import rescale_tensor
 
+
 def fourier_cropping_torch(
     data: torch.Tensor, new_shape: tuple, device: torch.device = None
 ) -> torch.Tensor:
@@ -133,9 +134,13 @@ class PreprocessedSemanticSegmentationUnet(SemanticSegmentationUnet):
             sample = sample[0]  # only use the first channel
             if self.rescale_patches:
                 if sample.shape[0] > self.target_shape[0]:
-                    sample = fourier_cropping_torch(sample, self.target_shape, self.device)
+                    sample = fourier_cropping_torch(
+                        sample, self.target_shape, self.device
+                    )
                 elif sample.shape[0] < self.target_shape[0]:
-                    sample = fourier_extend_torch(sample, self.target_shape, self.device)
+                    sample = fourier_extend_torch(
+                        sample, self.target_shape, self.device
+                    )
             rescaled_samples.append(sample.unsqueeze(0))
         rescaled_samples = torch.stack(rescaled_samples, dim=0)
         return rescaled_samples

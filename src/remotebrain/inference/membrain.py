@@ -1,6 +1,7 @@
 import torch
 from monai.inferers import SlidingWindowInferer
-#from membrain_seg.segmentation.networks.unet import SemanticSegmentationUnet
+
+# from membrain_seg.segmentation.networks.unet import SemanticSegmentationUnet
 from remotebrain.inference.inference_unet import PreprocessedSemanticSegmentationUnet
 
 from membrain_seg.tomo_preprocessing.matching_utils.px_matching_utils import (
