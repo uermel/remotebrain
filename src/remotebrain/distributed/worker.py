@@ -10,7 +10,7 @@ from remotebrain.data.loader import TomogramLoader
 
 
 def prep_model(
-    ckpt_path: str, device: torch.device, target_shape: Tuple[int, int, int]
+    ckpt_path: str, device: torch.device, target_shape: Tuple[int, int, int], rescale_patches: bool
 ) -> PreprocessedSemanticSegmentationUnet:
     # ------ Model prep part of segment ------ #
     # Load the trained PyTorch Lightning model
@@ -25,6 +25,8 @@ def prep_model(
     # Put the model into evaluation mode
     pl_model.eval()
     pl_model.target_shape = target_shape
+    pl_model.rescale_patches = rescale_patches
+    pl_model = torch.compile(pl_model)
 
     # ------ Model prep part of segment ------ #
     return pl_model
@@ -33,8 +35,8 @@ def prep_model(
 class DistributedWorker:
 
     def __init__(
-        self, gpu_id: int, model_ckpt_path: str, target_shape: Tuple[int, int, int]
+        self, gpu_id: int, model_ckpt_path: str, target_shape: Tuple[int, int, int], rescale_patches: bool
     ):
         self.gpu_id = gpu_id
         self.device = torch.device(f"cuda:{gpu_id}")
-        self.model = prep_model(model_ckpt_path, self.device, target_shape)
+        self.model = prep_model(model_ckpt_path, self.device, target_shape, rescale_patches)

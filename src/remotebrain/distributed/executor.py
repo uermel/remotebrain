@@ -46,6 +46,7 @@ class DistributedInference:
                         gpu_id,
                         model_ckpt_path=model_ckpt_path,
                         target_shape=(sw_roi_size, sw_roi_size, sw_roi_size),
+                        rescale_patches=rescale_patches,
                     )
                 )
 
