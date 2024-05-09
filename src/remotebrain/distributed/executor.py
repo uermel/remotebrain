@@ -104,6 +104,11 @@ class DistributedInference:
                 write_mrc=False,
                 write_npy=False,
             )
+
+            # Store progress
+            with self.output_fs.open(f"{self.output_bucket}/progress/{tomo.id}", "w") as f:
+                f.write("done")
+
         except Exception as e:
             msg = f"Error processing {tomo.s3_mrc_scale0} on GPU {worker.gpu_id}\n"
             msg += f"{str(e)}\n"

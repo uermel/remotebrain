@@ -7,7 +7,7 @@ from fsspec import AbstractFileSystem
 from s3fs import S3FileSystem
 from pathlib import Path
 from scipy import ndimage
-from typing import Union, Optional, List, Dict, Any
+from typing import Union, Optional, List, Dict, Any, Union
 from dataclasses import dataclass
 
 import ome_zarr.io
@@ -42,7 +42,7 @@ class AbstractTomogram:
     size_x: int
     size_y: int
     size_z: int
-    id: int
+    id: Union[str, int]
 
     @classmethod
     def from_portal(cls, tomogram: cdp.Tomogram):
@@ -70,7 +70,7 @@ class AbstractTomogram:
             size_x=size_x,
             size_y=size_y,
             size_z=size_z,
-            id=0,
+            id=str(file).replace(".mrc", "").replace(".zarr", ""),
         )
 
 
