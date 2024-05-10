@@ -29,7 +29,7 @@ def prep_model(
     pl_model.eval()
     pl_model.target_shape = target_shape
     pl_model.rescale_patches = rescale_patches
-    #pl_model = torch.compile(pl_model)
+    # pl_model = torch.compile(pl_model)
 
     # ------ Model prep part of segment ------ #
     return pl_model
